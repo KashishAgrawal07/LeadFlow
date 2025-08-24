@@ -262,6 +262,7 @@ const Dashboard = () => {
               loading={loading}
               suppressRowClickSelection={true}
               animateRows={true}
+              theme="legacy"
             />
           </div>
 
