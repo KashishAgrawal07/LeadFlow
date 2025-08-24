@@ -8,21 +8,24 @@ require('dotenv').config();
 
 const app = express();
 
-const allowlist = [
-  'http://localhost:5173', // local frontend
-  process.env.FRONTEND_URL  // deployed frontend (Vercel)
+const allowedOrigins = [
+  "http://localhost:5173",               // dev
+  "https://lead-management-frontend-dun.vercel.app" // production
 ];
 
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowlist.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true // IMPORTANT: allow cookies to be sent
-}));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // ✅ allows cookies
+  })
+);
+
 
 // MIDDLEWARE SETUP
 app.use(express.json());
@@ -30,10 +33,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/leadmanagement', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+})
+.then(() => console.log("✅ MongoDB connected"))
+.catch((err) => {
+  console.error("❌ MongoDB connection error:", err.message);
 });
+
 
 // User Schema
 const userSchema = new mongoose.Schema({
