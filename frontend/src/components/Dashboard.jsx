@@ -52,13 +52,20 @@ const Dashboard = () => {
   }, []);
 
   const handleLogout = async () => {
-    try {
-      await logout();
-      toast.success('Logged out successfully');
-    } catch (error) {
-      toast.error('Logout failed');
-    }
-  };
+  const navigate = useNavigate();
+
+  try {
+    await logout();
+    toast.success('Logged out successfully');
+
+  
+    localStorage.removeItem("user");
+
+    navigate("/login");
+  } catch (error) {
+    toast.error('Logout failed');
+  }
+};
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this lead?')) {
