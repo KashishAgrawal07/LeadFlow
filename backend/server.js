@@ -32,9 +32,11 @@ app.use(cookieParser());
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/leadmanagement', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  ssl: true,
-  tlsAllowInvalidCertificates: true,
-  serverSelectionTimeoutMS: 5000, 
+  tls: true,
+  tlsInsecure: true,
+  authSource: 'admin',
+  retryWrites: true,
+  w: 'majority'
 });
 
 // User Schema
