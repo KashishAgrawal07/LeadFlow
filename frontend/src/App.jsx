@@ -24,8 +24,7 @@ const PublicRoute = ({ children }) => {
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+ 
         <div className="App">
           <Toaster position="top-right" />
           <Routes>
@@ -57,8 +56,7 @@ function App() {
             <Route path="/" element={<Navigate to="/dashboard" />} />
           </Routes>
         </div>
-      </Router>
-    </AuthProvider>
+   
   );
 }
 
