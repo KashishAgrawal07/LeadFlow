@@ -221,7 +221,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <header className="dashboard-header">
         <div className="header-content">
-          <h1>Lead Management System</h1>
+          <h1>LeadFlow</h1>
           <div className="header-actions">
             <span>Welcome, {user?.name}</span>
             <button onClick={handleLogout} className="btn-secondary">
